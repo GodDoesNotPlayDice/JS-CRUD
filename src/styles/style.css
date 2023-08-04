@@ -1,0 +1,31 @@
+.header_bg {
+    background-image: url("https://wallpaperaccess.com/full/3121857.jpg");
+}
+
+.body_bg{
+    background-image: url("https://wallpaperaccess.com/full/3121857.jpg");
+}
+
+.text-stroke {
+    -webkit-text-stroke: 1.5px rgb(86, 19, 163); /* Tamaño y color del trazo */
+    color: transparent; /* Hace que el texto sea transparente para que solo se muestre el trazo */
+  }
+
+  
+.text-stroke-low {
+    -webkit-text-stroke: 0.5px rgb(255, 255, 255); /* Tamaño y color del trazo */
+    color: transparent; /* Hace que el texto sea transparente para que solo se muestre el trazo */
+  }
+
+.text-stroke-menu{
+    -webkit-text-stroke: 0.5px rgb(255, 255, 255);
+}
+
+@font-face {
+    font-family: 'text-cat';
+    src: url('../font/Tomcat.ttf') format('truetype');
+}
+
+.text-cat{
+    font-family: 'text-cat';
+}
