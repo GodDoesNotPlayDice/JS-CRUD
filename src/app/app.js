@@ -1,6 +1,20 @@
-import html from './app.html?raw';
+import index from './app.html?raw';
+import words from './words.html?raw';
 export const App = (elementID) => {
-    document.querySelector(elementID).innerHTML = html;
+    document.querySelector(elementID).innerHTML = index;
+    const menu_btns = document.querySelectorAll('.dinamic-link');
+    for (const menu_btn of menu_btns) {
+        console.log(menu_btn)
+        menu_btn.addEventListener('click', () => {
+            if (menu_btn.id === 'words') {
+                document.querySelector(elementID).innerHTML = words;
+            }
+            else if (menu_btn.id === 'home'){
+                console.log('home')
+                document.querySelector(elementID).innerHTML = index;
+            }
+        });
+    }
     const btn = document.querySelector('#menu');
     const menu = document.querySelector('#menu-group');
     const close = document.querySelector('#close');
