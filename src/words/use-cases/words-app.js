@@ -3,15 +3,13 @@ import { renderWords } from "../presentation/render-words";
 import wordsStore from "../store/words.store";
 
 export const WordsApp = async (element) => {
+    const btnload = document.querySelector('.loadMore');
     const loading = document.createElement('h3');
     loading.classList.add('lg:text-2xl', 'text-xl', 'py-2', 'font-medium', 'text-purple-500');
     loading.innerHTML = `Loading Words...`;
     element.innerHTML = loading.outerHTML;
-    
-
     try {
-       
-        await wordsStore.loadStationWords();
+        await wordsStore.loadStationWords(btnload);
         element.innerHTML = '';
         const words = wordsStore.getWords();
         let words_render = renderWords(words);
@@ -22,15 +20,14 @@ export const WordsApp = async (element) => {
         const loadMore = document.querySelector('.loadMore');
         loadMore.addEventListener('click', async () => {
             try {
-                await wordsStore.loadStationWords();
+                await wordsStore.loadStationWords(btnload);
                 wordsStore.getCurrentPage();
                 const words = wordsStore.getWords();
-                console.log(wordsStore.getCurrentPage());
                 let words_render = renderWords(words);
                 for (let i = 0; i < words_render.length; i++) {
                     element.innerHTML += words_render[i];
                 }
-                words_render = [];
+                words_render = []; 
             } catch {
                 console.log('Error loading more words');
             }

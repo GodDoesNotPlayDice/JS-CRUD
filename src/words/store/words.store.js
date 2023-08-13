@@ -4,13 +4,22 @@ const state = {
     currentPage : 0,
     words : [],
 }
-
-const loadStationWords = async () => {
+let last_page = false;
+const loadStationWords = async (btnload) => {
     const words = await loadWords(state.currentPage + 1);
-    console.log(words);
-    if (words.length === 0) return;
-    state.currentPage += 1;
-    state.words = words;
+    if (words.length === 0 && state.currentPage > 0) {
+        btnload.classList.replace('bg-purple-600', 'bg-gray-400');
+        btnload.classList.replace('hover:bg-purple-800', 'hover:bg-gray-400');
+        btnload.classList.replace('cursor-pointer', 'cursor-not-allowed');
+        if (last_page === false){
+            state.currentPage += 1;
+            state.words = words;
+            last_page = true;
+        }
+    } else {
+        state.currentPage += 1;
+        state.words = words;
+    }
 };
 
 const onWordChange = async () => {
