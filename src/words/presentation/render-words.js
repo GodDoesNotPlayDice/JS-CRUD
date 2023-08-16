@@ -32,11 +32,8 @@ export const renderWords = (words) => {
         if (w_ip === ip) {
            new_word = `<div class=" ${color} p-2 lg:p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center group">
                 <div class="flex">
-                    <p class="element-title text-sm lg:text-xl font-medium text-white">${word.word}</p>
-                </div>
-                    <div class="bg-red-600 mx-2 cursor-pointer rounded-md p-1 h-0 w-0 overflow-hidden group-hover:w-auto group-hover:h-auto transition-all group-hover:transition-all">
-                    <p class="text-white font-medium">Delete</p>
-                </div>
+                    <p class="element-title text-sm lg:text-xl font-medium text-white">${word.word}
+                    </p>
                 </div>
             </div>`
         } else{
