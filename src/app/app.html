@@ -71,18 +71,38 @@
             </div>
         </div>
         <div class="mx-12">
-            <h3 class="lg:text-5xl text-3xl py-2 font-medium text-purple-500">Everything Words!</h3>
-            <div class="lg:my-9 mb-28">
+            <h3 class="lg:text-5xl text-3xl text-center lg:text-start py-2 font-medium text-purple-500">Everything Words!</h3>
+            <div id="container" class="lg:my-9 mb-28 flex items-center flex-col lg:block">
                 <div class="words-container flex justify-center lg:justify-start flex-wrap max-w-7xl">
-                    
                 </div>
-                <div class="flex justify-center lg:justify-start">
-                    <div class="lg:w-1/4 loadMore bg-purple-600 hover:bg-purple-800 cursor-pointer p-2 lg:p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center">
-                        <i class="fa-solid fa-spinner mr-2 text-white"></i>
+                <div class="loadMore flex justify-center lg:justify-start">
+                    <div class=" bg-purple-600 hover:bg-purple-800 cursor-pointer p-2 lg:p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center">
+                        
                         <p class="element-title text-sm lg:text-xl font-medium text-white">Load More</p>
                     </div>
                 </div>
+                <div class="reload flex justify-center lg:justify-start hidden">
+                    <div class="reloadStyles bg-purple-600 hover:bg-purple-800 cursor-pointer p-2 lg:p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center">
+                        <i class="fa-solid fa-spinner mr-2 text-white"></i>
+                        <p class="element-title reload_text text-sm lg:text-xl font-medium text-white">Reload</p>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="flex justify-center">
+        <div class="bg-purple-200 animate__animated animate__zoomOut hidden modal rounded-lg fixed top-1/4 p-12 lg:p-14 overflow-hidden">
+            <div class="close-modal absolute top-0 bg-red-500 cursor-pointer hover:bg-red-950 transition-all hover:transition-all duration-500 hover:duration-500 p-2 px-4 rounded-bl-xl right-0"><i class="fa-solid text-base text-white fa-x"></i></div>
+            <form id="new_words_form" action="" class="flex items-center flex-col">
+                <h2 class="text-3xl relative left-3 text-purple-600 font-semibold ">Writte a word!🍇</h2>
+                <div class="my-6">
+                    <label for="word">
+                        <input name="word" id="new_words_text" class="p-3 outline-purple-700 outline-4 w-64 text-4xl font-semibold text-purple-600 text-center" type="text">
+                    </label>
+                </div>
+                <span id="errors" class="opacity-0 text-red-600">Hello im error :D</span>
+                <button id="create-btn" class="bg-purple-700 text-white py-2 px-24 rounded-lg relative top-4 font-semibold hover:bg-purple-900 transition-all duration-500 hover:transition-all">Ok!</button>
+            </form>
         </div>
     </div>
 </main>
