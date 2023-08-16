@@ -1,4 +1,3 @@
-import wordsStore from "../store/words.store";
 const getIp = async () => {
     try {
       const response = await fetch("https://api.ipify.org/");
@@ -28,14 +27,20 @@ export const renderWords = (words) => {
         const random_int = Math.floor(Math.random() * colors.length);
         const color = colors[random_int];
         let new_word;
+        let btn;
         const {ip: w_ip} = word
         if (w_ip === ip) {
-           new_word = `<div class=" ${color} p-2 lg:p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center group">
-                <div class="flex">
-                    <p class="element-title text-sm lg:text-xl font-medium text-white">${word.word}
-                    </p>
-                </div>
-            </div>`
+           btn = `<div class="flex justify-start">
+           <div id="delete-word" class="animate__bounce animate__animated group transition-all group-hover:trasition-all p-4 mx-2 lg:mx-4 lg:bottom-4 lg:right-0 fixed bottom-36 flex justify-center items-center bg-red-800 bg-opacity-95 rounded-full hover:bg-red-700 cursor-pointer">
+               <i class="fa-solid cursor-pointer fa-trash text-white"></i>
+               <p class="transition-all group-hover:trasition-all overflow-hidden opacity-0 w-0 h-0 text-sm text-white group-hover:opacity-100 group-hover:w-auto group-hover:h-auto group-hover:ml-2">Delete your word</p>
+           </div>                        
+       </div>`
+       document.querySelector('#buttons-cont').innerHTML += btn;
+        new_word = `
+        <div class=" ${color} p-2 lg:p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center">
+            <p class="element-title text-sm lg:text-xl font-medium text-white">${word.word}</p>
+        </div>`;
         } else{
             new_word = `
             <div class=" ${color} p-2 lg:p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center">

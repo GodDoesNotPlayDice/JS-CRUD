@@ -38,6 +38,29 @@ const render_words = async (element) => {
 }
 
 
+export const reload_when_insert = async (element) => {
+    const load = loading(element)
+    element.append(load)
+    try {
+        await wordsStore.reloadWords();
+        load.remove()
+        const words = wordsStore.getWords();
+        let words_render = renderWords(words);
+        element.innerHTML = ''
+        words_render.forEach(word => {
+            element.innerHTML += word;
+        });
+    } catch (error) {
+        const errorDisplay = document.createElement('h3');
+        errorDisplay.classList.add('text-center' ,'lg:text-2xl', 'text-xl', 'py-2', 'font-medium', 'text-red-500');
+        errorDisplay.innerHTML = `Error loading words: ${error.message}`;
+        element.innerHTML = errorDisplay.outerHTML;
+        document.querySelector('.loadMore').remove();
+    }
+}
+
+
+
 
 const load_more_words = async (element) => {
     const load = loading(element);
@@ -46,7 +69,7 @@ const load_more_words = async (element) => {
         await wordsStore.loadMoreWords();
         const words = wordsStore.getWords();
         let words_render = renderWords(words);
-
+        console.log('load more')
         words_render.forEach(word => {
             element.innerHTML += word;
         });
