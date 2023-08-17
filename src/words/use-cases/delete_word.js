@@ -19,5 +19,10 @@ const deleteWordEndpoint = async (ip) => {
     })
     const deleteRes = await res.json();
     console.log(deleteRes);
+    iziToast.success({
+        title: 'Deleted',
+        message: 'Successfully Delete',
+        position: 'topRight'
+        });
     return true;
 }

@@ -16,9 +16,9 @@ export const getNewWord = async (data) => {
     const get_res = res.json()
    load_more_words(document.querySelector('.words-container '));
     iziToast.success({
-    title: 'OK',
-    message: 'Successfully inserted record!',
-    position: 'topCenter'
+    title: 'Added',
+    message: 'Susccesfull add!',
+    position: 'topRight'
     });
     return get_res;
 }

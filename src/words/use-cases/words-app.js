@@ -70,6 +70,11 @@ const reload_style_timmer = () => {
     btn_icon.classList.replace('fa-spinner', 'fa-rotate-right');
     btn_icon.classList.add('animate-spin');
     btn_text.innerHTML = 'Reload';
+    iziToast.warning({
+        title: 'Warning Reload',
+        message: "You can't reload too fast!",
+        position: "topRight"
+    });
     setTimeout(() => {
         document.querySelector('.loadMore-block').classList.toggle('hidden');
         btn.classList.replace('bg-gray-700', 'bg-purple-800');
@@ -98,6 +103,11 @@ export const load_more_words = async (element) => {
         } else{
             reload_style();
             click++;
+            iziToast.info({
+                title: 'Reload',
+                message: 'Reloaded!',
+                position: 'topRight'
+            });
         }
         load_delete_button();
         load.remove();
