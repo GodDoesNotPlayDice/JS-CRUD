@@ -12,3 +12,12 @@ export const loadWords = async (page = 1) => {
     const words = data.map(wordLike => localhostWordToModel(wordLike));
     return words;
 }
+
+export const loadAllWords = async () => {
+    const url = `${import.meta.env.VITE_BASE_URL}/Words`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const words = data.map(wordLike => localhostWordToModel(wordLike));
+    
+    return words;
+}

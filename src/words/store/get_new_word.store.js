@@ -1,5 +1,4 @@
 import { Word } from "../models/words.model";
-import { reload_when_insert } from "../use-cases/words-app";
 // import { render_words } from "../use-cases/words-app";
 
 export const getNewWord = async (data) => {

@@ -8,14 +8,14 @@ export const modal_input = () => {
   const form = document.querySelector("#new_words_form");
   const error = document.querySelector("#errors");
 
-  let isAnimating = false; // Flag to track animation state
+  let isAnimating = false; 
 
   const modal_animation = () => {
-    if (isAnimating) return; // Ignore if animation is in progress
+    if (isAnimating) return;
     isAnimating = true;
     if (modal.classList.contains("animate__zoomOut")) {
       modal.classList.remove("animate__zoomOut");
-      modal.classList.remove("hidden"); // Remove the "hidden" class
+      modal.classList.remove("hidden");
       modal.classList.add("animate__zoomIn");
       isAnimating = false; // Animation complete
       input.focus();
