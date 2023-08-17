@@ -1,4 +1,5 @@
 import { Word } from "../models/words.model";
+import { load_more_words } from "../use-cases/words-app";
 // import { render_words } from "../use-cases/words-app";
 
 export const getNewWord = async (data) => {
@@ -13,6 +14,6 @@ export const getNewWord = async (data) => {
 
     })
     const get_res = res.json()
-    await reload_when_insert(document.querySelector('.words-container'));
+   load_more_words(document.querySelector('.words-container '));
     return get_res;
 }

@@ -5,7 +5,7 @@ const state = {
     words : [],
 }
 
-const getIp = async () => {
+export const getIp = async () => {
     try {
       const response = await fetch("https://api.ipify.org/");
       const ip = await response.text();
@@ -21,7 +21,6 @@ const loadStationWords = async () => {
     state.currentPage += 1;
     state.words = words;
 };
-
 const loadMoreWords = async () => {
     let total_words = [];
     const words = await loadAllWords();
@@ -33,27 +32,16 @@ const loadMoreWords = async () => {
 
 
 const word_confirm = async () => {
-    const word = await loadAllWords();
+    const words = await loadAllWords();
     const ip = await getIp();
-    word.forEach(w => {
-        if (String(w.ip) === ip) {
-            console.log(w.ip)
-            return true;
-        }
-    })
-    return false;
+    const flag = words.some(w => String(w.ip) === ip);
+    return flag;
 }
-
-const reloadWords = async () => {
-
-    
-};
 
 export default{
     state,
     loadStationWords,
     loadMoreWords,
-    reloadWords,
     word_confirm,
     /**
      * 
