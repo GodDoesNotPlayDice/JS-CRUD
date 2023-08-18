@@ -5,10 +5,12 @@ import { Word } from "../models/words.model"
  * @returns {Word}
  */
 export const localhostWordToModel = (localhostword) => {
-    const { word, ip, date } = localhostword
+    const { word, ip, date, uuid} = localhostword
     return new Word({
         word,
         ip,
-        date
+        date,
+        uuid,
     })
+
 }

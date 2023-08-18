@@ -1,4 +1,6 @@
 import { getNewWord } from "../../words/store/get_new_word.store.js";
+import { ip_encrypted } from "../../words/store/words.store.js";
+import { invalid_input } from "../../words/use-cases/words-app.js";
 export const modal_input = () => {
   const modal = document.querySelector(".modal");
   const btn = document.querySelector("#create-word");
@@ -73,24 +75,34 @@ export const modal_input = () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const ipPromise = getIp();
-    const formData = new FormData(form);
-    const ip = await ipPromise;
-    const data = {
-      ip: ip,
-      date: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`,
-    };
-    for (const [key, value] of formData) {
-      if (key === "word") {
-        if(val_text(value)){
-          data[key] = String(value.split(' ')[0].trim());
-        }
-        else{
-          return;
+    let flag = await invalid_input();
+    if (flag){
+      iziToast.error({
+        title: 'Invalid',
+        message: 'You already have a word!',
+        position: 'topRight'
+        });
+    } else {
+      const ipPromise = getIp();
+      const formData = new FormData(form);
+      const ip = await ipPromise;
+      const encrypt_ip = await ip_encrypted(ip)
+      const data = {
+        ip: encrypt_ip,
+        date: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`,
+      };
+      for (const [key, value] of formData) {
+        if (key === "word") {
+          if(val_text(value)){
+            data[key] = String(value.split(' ')[0].trim());
+          }
+          else{
+            return;
+          }
         }
       }
+      getNewWord(data);
+      modal_animation();
     }
-    getNewWord(data);
-    modal_animation();
   });
 };

@@ -1,8 +1,46 @@
 
 import { renderWords } from "../presentation/render-words";
+import { reAsingIp } from "../store/get_new_word.store";
+import { loadAllWords } from "../store/load_words";
 import wordsStore, { getIp } from "../store/words.store";
 import { deleteWord } from "./delete_word";
+import { ip_decrypted } from "../store/words.store";
 
+
+
+const removeIp = async () => {
+    const words = await loadAllWords();
+    const w_date = words.some(w => String(w.date) < `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}` );
+    const get_words_ip = words.filter(w => String(w.date) < `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}` );
+    if (w_date){
+        get_words_ip.forEach(async (w) => {
+           await reAsingIp(w);
+        });
+    }
+}
+
+removeIp();
+
+
+export const invalid_input = async () => {
+    const words = await loadAllWords();
+    const ip = await getIp();
+    const decryptPromises = words.map(async (w) => {
+        if (w.ip === 'NULL') {
+            return false;
+        }
+        const decrypt = await ip_decrypted(w.ip);
+        return decrypt === ip;
+    });
+    const results = await Promise.all(decryptPromises);
+    const w_ip = results.includes(true);
+    const w_date = words.some(w => String(w.date) == `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}` );
+    if (w_ip && w_date ) {
+        return true; 
+    } else {
+        return false;
+    }
+}
 
 const loading = () => {
     const load = document.createElement('div');
@@ -105,7 +143,7 @@ export const load_more_words = async (element) => {
             click++;
             iziToast.info({
                 title: 'Reload',
-                message: 'Reloaded!',
+                message: 'Successfully Reloaded!',
                 position: 'topRight'
             });
         }
@@ -148,5 +186,12 @@ export const WordsApp = async (element) => {
     } catch (error) {
         console.log(error);
     }
+
+    Swal.fire(
+        'Welcome!',
+        'This web you can add a word a day and see the words of other people!, you can add a word every 24 hours!, enjoy!',
+        'success'
+      )
+
 }
 

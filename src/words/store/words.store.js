@@ -5,6 +5,16 @@ const state = {
     words : [],
 }
 
+
+export const ip_encrypted = async (ip) => {
+  return CryptoJS.AES.encrypt(ip, import.meta.env.VITE_SECRET_KEY).toString();
+}
+
+export const ip_decrypted = async (ip) => {
+  const decrypt = CryptoJS.AES.decrypt(ip, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+  return decrypt;
+}
+
 export const getIp = async () => {
     try {
       const response = await fetch("https://api.ipify.org/");
@@ -30,13 +40,22 @@ const loadMoreWords = async () => {
     return total_words;
 }
 
-
 const word_confirm = async () => {
-    const words = await loadAllWords();
-    const ip = await getIp();
-    const flag = words.some(w => String(w.ip) === ip);
-    return flag;
+  const words = await loadAllWords();
+  const ip = await getIp();
+  const decryptPromises = words.map(async (w) => {
+    if (w.ip === 'NULL') {
+      return false;
+    }
+    const decrypt = await ip_decrypted(w.ip);
+    return decrypt === ip;
+  });
+  const results = await Promise.all(decryptPromises);
+  const flag = results.includes(true);
+  return flag;
 }
+
+
 
 export default{
     state,

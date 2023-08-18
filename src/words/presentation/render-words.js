@@ -15,8 +15,8 @@ export const renderWords = (words) => {
         const random_int = Math.floor(Math.random() * colors.length);
         const color = colors[random_int];
         let new_word;
-        new_word = `<div class=" ${color} p-2 lg:p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center">
-                <p class="element-title text-sm lg:text-xl font-medium text-white">${word.word}</p>
+        new_word = `<div class=" ${color} p-3 rounded-lg m-1 hover:scale-105 hover:transition-all transition-all flex items-center">
+                <p class="element-title text-xl lg:text-xl font-medium text-white">${word.word}</p>
             </div>`;
         wordsList.push(new_word);
     });    

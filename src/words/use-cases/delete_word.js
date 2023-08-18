@@ -1,19 +1,20 @@
 import { loadAllWords } from "../store/load_words";
-import { getIp } from "../store/words.store";
+import { getIp, ip_decrypted } from "../store/words.store";
 import { hidden_delete_button } from "./words-app";
 
 export const deleteWord = async () => {
     const words = await loadAllWords();
     const ip = await getIp();
     for (const w of words) {
-        if (w.ip === ip) {
-            await deleteWordEndpoint(w.ip);
+        let decrypt = ip_decrypted(w.ip);
+        if (await decrypt === ip) {
+            await deleteWordEndpoint(w.uuid);
              hidden_delete_button();
         }
     }
 }
-const deleteWordEndpoint = async (ip) => {
-    const url = `${import.meta.env.VITE_BASE_URL}/Words/${ip}`;
+const deleteWordEndpoint = async (uuid) => {
+    const url = `${import.meta.env.VITE_BASE_URL}/Words/${uuid}`;
     const res = await fetch(url, {
         method: 'DELETE'
     })
@@ -21,7 +22,7 @@ const deleteWordEndpoint = async (ip) => {
     console.log(deleteRes);
     iziToast.success({
         title: 'Deleted',
-        message: 'Successfully Delete',
+        message: 'Successfully deleted',
         position: 'topRight'
         });
     return true;

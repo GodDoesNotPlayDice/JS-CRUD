@@ -18,6 +18,5 @@ export const loadAllWords = async () => {
     const res = await fetch(url);
     const data = await res.json();
     const words = data.map(wordLike => localhostWordToModel(wordLike));
-    
     return words;
 }
