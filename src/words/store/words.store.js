@@ -1,7 +1,6 @@
 import { loadAllWords, loadWords } from "./load_words";
 
 const state = {
-    currentPage : 0,
     words : [],
 }
 
@@ -27,17 +26,13 @@ export const getIp = async () => {
   };
 
 const loadStationWords = async () => {
-    const words = await loadWords(state.currentPage + 1);
-    state.currentPage += 1;
+    const words = await loadWords();
     state.words = words;
 };
 const loadMoreWords = async () => {
-    let total_words = [];
     const words = await loadAllWords();
-    total_words.push(...words);
-    state.currentPage += 1;
-    state.words = total_words;
-    return total_words;
+    state.words = words;
+    return words;
 }
 
 const word_confirm = async () => {

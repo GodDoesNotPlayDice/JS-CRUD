@@ -1,6 +1,8 @@
 import { loadAllWords } from "../store/load_words";
 import { getIp, ip_decrypted } from "../store/words.store";
 import { hidden_delete_button } from "./words-app";
+import { getDatabase, ref, remove} from "firebase/database";
+
 
 export const deleteWord = async () => {
     const words = await loadAllWords();
@@ -14,16 +16,8 @@ export const deleteWord = async () => {
     }
 }
 const deleteWordEndpoint = async (uuid) => {
-    const url = `${import.meta.env.VITE_BASE_URL}/Words/${uuid}`;
-    const res = await fetch(url, {
-        method: 'DELETE'
-    })
-    const deleteRes = await res.json();
-    console.log(deleteRes);
-    iziToast.success({
-        title: 'Deleted',
-        message: 'Successfully deleted',
-        position: 'topRight'
-        });
-    return true;
+    const db = getDatabase();
+    remove(ref(db, `words/${uuid}`)).then(() => {}).catch((error) => {
+        console.log(error);
+    });
 }

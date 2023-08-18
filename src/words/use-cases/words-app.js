@@ -10,7 +10,7 @@ import { ip_decrypted } from "../store/words.store";
 
 const removeIp = async () => {
     const words = await loadAllWords();
-    const w_date = words.some(w => String(w.date) < `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}` );
+    const w_date = words.some(w => String(w.date) < `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`);
     const get_words_ip = words.filter(w => String(w.date) < `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}` );
     if (w_date){
         get_words_ip.forEach(async (w) => {
@@ -83,10 +83,22 @@ const render_words = async (element) => {
         words_render.forEach(word => {
             element.innerHTML += word;
         });
+        
+        Swal.fire(
+            'Welcome!',
+            'This web you can add a word a day and see the words of other people!, you can add a word every 24 hours!, enjoy!',
+            'success'
+          )
     } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Server does not respond!',
+            footer: 'if you have a problem contact me! #Discord: goddoesnotplaydice'
+          })
         const errorDisplay = document.createElement('h3');
         errorDisplay.classList.add('text-center' ,'lg:text-2xl', 'text-xl', 'py-2', 'font-medium', 'text-red-500');
-        errorDisplay.innerHTML = `Error loading words: ${error.message}`;
+        errorDisplay.innerHTML = `Error loading words: ${error.message} Maybe the DB is not working!`;
         element.innerHTML = errorDisplay.outerHTML;
         document.querySelector('.loadMore').remove();
     } 
@@ -102,7 +114,6 @@ const reload_style_timmer = () => {
     let btn_text = document.querySelector('.reload_text');
     let btn_icon = document.querySelector('.reload_icon');
     document.querySelector('.loadMore-block').classList.toggle('hidden');
-    console.log(document.querySelector('.loadMore-block'))
     btn.classList.replace('bg-purple-800', 'bg-gray-700');
     btn.classList.replace('hover:bg-purple-700', 'hover:bg-gray-600');
     btn_icon.classList.replace('fa-spinner', 'fa-rotate-right');
@@ -186,12 +197,6 @@ export const WordsApp = async (element) => {
     } catch (error) {
         console.log(error);
     }
-
-    Swal.fire(
-        'Welcome!',
-        'This web you can add a word a day and see the words of other people!, you can add a word every 24 hours!, enjoy!',
-        'success'
-      )
 
 }
 

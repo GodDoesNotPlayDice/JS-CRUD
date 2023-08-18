@@ -101,7 +101,7 @@ export const modal_input = () => {
           }
         }
       }
-      getNewWord(data);
+      await getNewWord(data);
       modal_animation();
     }
   });
