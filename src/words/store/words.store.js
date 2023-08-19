@@ -3,8 +3,6 @@ import { loadAllWords, loadWords } from "./load_words";
 const state = {
     words : [],
 }
-
-
 export const ip_encrypted = async (ip) => {
   return CryptoJS.AES.encrypt(ip, import.meta.env.VITE_SECRET_KEY).toString();
 }
