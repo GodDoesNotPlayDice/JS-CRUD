@@ -197,6 +197,7 @@ export const WordsApp = async (element) => {
         console.log(error);
     }
 
+    console.log("Create by: GodDoesNotPlayDice")
 
 }
 
