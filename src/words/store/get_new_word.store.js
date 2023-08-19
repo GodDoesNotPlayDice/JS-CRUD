@@ -29,21 +29,10 @@ export const reAsingIp = async (data) => {
   let word = new Word(data);
   try{
       const newWord = await update(ref(getDatabase(), `words/${word.uuid}`), {
-        ip: word.ip,
-      });
-      load_more_words(document.querySelector(".words-container "));
-      iziToast.success({
-        title: "Added",
-        message: "Successfully added!",
-        position: "topRight",
+        ip: "NULL",
       });
       return newWord;
   } catch (error) {
         console.log(error);
-        iziToast.error({
-            title: "Error",
-            message: "Error adding word!",
-            position: "topRight",
-        });
   }
 };

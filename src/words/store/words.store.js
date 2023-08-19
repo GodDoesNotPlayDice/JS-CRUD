@@ -43,6 +43,7 @@ const word_confirm = async () => {
       return false;
     }
     const decrypt = await ip_decrypted(w.ip);
+    console.log(decrypt, ip)
     return decrypt === ip;
   });
   const results = await Promise.all(decryptPromises);

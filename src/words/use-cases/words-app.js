@@ -14,12 +14,12 @@ const removeIp = async () => {
     const get_words_ip = words.filter(w => String(w.date) < `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}` );
     if (w_date){
         get_words_ip.forEach(async (w) => {
+            console.log(w)
            await reAsingIp(w);
         });
     }
 }
 
-removeIp();
 
 
 export const invalid_input = async () => {
@@ -174,10 +174,9 @@ export const load_more_words = async (element) => {
 export const WordsApp = async (element) => {
     try {
         await render_words(element);
-        load_delete_button();
-    } catch (error) {
-        console.log(error);
-    }
+        await load_delete_button();
+        await removeIp();
+    } catch (error) {}
 
     try{
         const loadMore = document.querySelector('.loadMore');
@@ -197,6 +196,7 @@ export const WordsApp = async (element) => {
     } catch (error) {
         console.log(error);
     }
+
 
 }
 
