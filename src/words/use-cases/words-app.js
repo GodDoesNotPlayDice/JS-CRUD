@@ -14,7 +14,6 @@ const removeIp = async () => {
     const get_words_ip = words.filter(w => String(w.date) < `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}` );
     if (w_date){
         get_words_ip.forEach(async (w) => {
-            console.log(w)
            await reAsingIp(w);
         });
     }
